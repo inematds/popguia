@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>popguia — popups que guiam, instalados pelo seu agente de IA</title>
+<meta name="description" content="Popups e jornadas inteligentes open source (MIT) que o Claude Code, Codex ou Cursor instala e configura no seu site. Pesquisa e plano.">
+<link rel="alternate" hreflang="pt-BR" href="https://inematds.github.io/popguia/guia/">
+<link rel="alternate" hreflang="en" href="https://inematds.github.io/popguia/guia/en/">
+<link rel="alternate" hreflang="es" href="https://inematds.github.io/popguia/guia/es/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0c10; --bg2:#14141b; --card:#16161e; --line:#272730;
+    --txt:#e9e9ee; --mut:#9a9aa6; --amb:#E2A23B; --amb2:#f0c070; --sky:#38bdf8; --pro:#cbd5e1;
+    color-scheme:dark;
+  }
+  body.light{
+    --bg:#f6f7f9; --bg2:#eceef2; --card:#ffffff; --line:#e1e3ea;
+    --txt:#1a1a22; --mut:#5b5b68; --amb:#b9791d; --amb2:#a16207; --sky:#0369a1; --pro:#b45309;
+    color-scheme:light;
+  }
+  body.light .hero .glow{opacity:.5}
+  body.light pre{background:#0e0e14;color:#d6d6e0}
+  body.light pre .c{color:#8a8a98}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:Sora,sans-serif;line-height:1.15;margin:0}
+  a{color:var(--amb);text-decoration:none}
+  code,pre{font-family:"JetBrains Mono",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+  .mut{color:var(--mut)} .amb{color:var(--amb)}
+  .chip{display:inline-block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amb);font-weight:600;font-family:Sora}
+  nav{position:sticky;top:0;z-index:30;backdrop-filter:blur(12px);background:rgba(12,12,16,.78);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:22px;height:60px}
+  nav .brand{display:flex;align-items:center;gap:8px;font-family:Sora;font-weight:800;letter-spacing:-.02em;color:var(--amb)}
+  nav .brand .emoji{font-size:1.25rem}
+  nav .sep{color:var(--mut);opacity:.45}
+  nav .inema{color:var(--sky);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .inema:hover{filter:brightness(1.15)}
+  nav .pro{color:var(--pro);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .pro:hover{filter:brightness(1.15)}
+  nav .clubpro{display:inline-flex;align-items:center;gap:6px}
+  nav .links{margin-left:auto;display:flex;align-items:center;gap:20px;font-size:.92rem}
+  nav .links a.sec{color:var(--mut)} nav .links a.sec:hover{color:var(--txt)}
+  .lang{display:inline-flex;gap:2px;font-family:Sora;font-size:.78rem}
+  .lang a{color:var(--mut);padding:.2em .45em;border-radius:6px} .lang a.on{color:var(--amb);background:rgba(226,162,59,.12)}
+  .tgl{background:var(--bg2);border:1px solid var(--line);color:var(--txt);width:38px;height:38px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .tgl:hover{border-color:var(--amb)}
+  .btn{display:inline-block;background:var(--amb);color:#1a1206;font-weight:600;padding:.6em 1.05em;border-radius:10px;font-family:Sora}
+  .btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+  @media(max-width:760px){nav .links a.sec{display:none}}
+  @media(max-width:520px){nav .wrap{gap:8px;padding:8px 14px;height:auto;flex-wrap:wrap} nav .links{gap:8px;margin-left:0;width:100%;justify-content:space-between} nav .btn{padding:.45em .7em;font-size:.82rem} .tgl{width:34px;height:34px}}
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .hero .glow{position:absolute;inset:-40% -20% auto auto;width:70%;height:600px;background:radial-gradient(closest-side,rgba(226,162,59,.22),transparent 70%);pointer-events:none}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:74px 22px}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.025em}
+  .hero p.lead{font-size:1.18rem;color:var(--mut);margin:1.1em 0 1.6em;max-width:34ch}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hero figure{margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000}
+  .hero figure img{width:100%;display:block}
+  .resumo{padding:38px 0 34px;border-bottom:1px solid var(--line)}
+  .resumo p{font-size:1.12rem;line-height:1.7;max-width:74ch;margin:.55em 0 0}
+  @media(max-width:780px){.hero .wrap{grid-template-columns:1fr;padding:48px 22px}}
+  section{padding:62px 0;border-bottom:1px solid var(--line)}
+  section h2{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.02em}
+  section .sub{color:var(--mut);margin:.6em 0 2em;max-width:62ch}
+  .grid{display:grid;gap:16px}
+  .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:820px){.g3,.g4{grid-template-columns:1fr 1fr}}
+  @media(max-width:540px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .card h3{font-size:1.05rem;margin-bottom:.4em}
+  .card p{color:var(--mut);font-size:.92rem;margin:0}
+  .num{display:inline-flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:8px;background:rgba(226,162,59,.14);color:var(--amb);font-family:Sora;font-weight:800;font-size:.9rem;margin-bottom:.7em}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+  .flow span{background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:.45em .9em;font-size:.85rem;font-family:Sora;font-weight:600}
+  .flow .arr{color:var(--amb);border:none;background:none;padding:0 .1em}
+  pre{background:#0a0a0e;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow:auto;font-size:.86rem;line-height:1.6;color:#d6d6e0}
+  pre .c{color:#6f6f7c} pre .k{color:var(--amb2)} pre .s{color:#9ece6a}
+  .step{display:grid;grid-template-columns:46px minmax(0,1fr);gap:16px;margin-bottom:26px}
+  .step>div,.card{min-width:0}
+  p code,li code,td code{overflow-wrap:anywhere}
+  .step .b{width:46px;height:46px;border-radius:12px;background:var(--amb);color:#1a1206;font-family:Sora;font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center}
+  .step h3{font-size:1.12rem;margin-bottom:.3em}
+  .step p{color:var(--mut);margin:.2em 0 .7em}
+  .ex{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:680px){.ex{grid-template-columns:1fr}}
+  .ex figure{margin:0;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  .ex figure img{width:100%;display:block}
+  .ex figcaption{padding:12px 14px;font-size:.88rem;color:var(--mut);background:var(--card)}
+  .phase{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .phase:last-child{border:none}
+  .phase .tag{flex:0 0 92px;font-family:Sora;font-weight:800;color:var(--amb)}
+  .phase .d strong{display:block;margin-bottom:.2em}
+  .phase .d span{color:var(--mut);font-size:.92rem}
+  footer{padding:46px 0;text-align:center;color:var(--mut);font-size:.9rem}
+  .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3em .8em;font-size:.78rem;color:var(--mut);margin:0 4px}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="brand" href="#top"><span class="emoji">🧭</span> popguia</a>
+  <span class="sep">|</span>
+  <span class="clubpro">
+    <a class="inema" href="https://inema.club" target="_blank" rel="noopener">INEMA.CLUB</a>
+    <span class="sep">-</span>
+    <a class="pro" href="https://inema.pro" target="_blank" rel="noopener">PRO</a>
+  </span>
+  <div class="links">
+    <a class="sec" href="#oque">O que é</a>
+    <a class="sec" href="#fluxo">Como funciona</a>
+    <a class="sec" href="#guia">Guia de uso</a>
+    <a class="sec" href="#exemplos">Jornadas</a>
+    <a class="sec" href="#roadmap">Roadmap</a>
+    <span class="lang"><a class="on" href="./">PT</a><a href="en/">EN</a><a href="es/">ES</a></span>
+    <button class="tgl" id="themeToggle" aria-label="Alternar tema" title="Alternar tema">🌙</button>
+    <a class="btn" href="https://github.com/inematds/popguia" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="glow"></div>
+  <div class="wrap">
+    <div>
+      <span class="chip">Open source · MIT · em planejamento</span>
+      <h1>Popups que <span class="amb">guiam</span> o visitante, instalados pelo seu agente de IA</h1>
+      <p class="lead">Quiz, recomendação e cadastro em etapas no lugar do "deixe seu e-mail". Você pede ao Claude Code ou ao Codex, e ele instala e configura no seu site.</p>
+      <div class="cta">
+        <a class="btn" href="#guia">Começar o guia</a>
+        <a class="btn ghost" href="https://github.com/inematds/popguia" target="_blank" rel="noopener">Ver no GitHub</a>
+      </div>
+    </div>
+    <figure><img src="assets/banner.jpg" alt="Banner do popguia: popups que guiam"></figure>
+  </div>
+</header>
+
+<section id="resumo" class="resumo"><div class="wrap">
+  <span class="chip">Em resumo</span>
+  <p>O popguia é um projeto open source para criar popups que conversam com o visitante: em vez de pedir o e-mail logo de cara, ele faz duas ou três perguntas, ensina algo útil e indica o produto, curso ou conteúdo certo. Serve para quem tem um site (HTML, Next.js, Astro, WordPress) e usa um agente de código como Claude Code, Codex ou Cursor: o agente instala, escreve as jornadas e acompanha os resultados. É grátis, com licença MIT, sem mensalidade e sem servidor nosso. <strong>Hoje o repositório tem a pesquisa e o plano; o código ainda vai ser escrito.</strong></p>
+</div></section>
+
+<section id="oque"><div class="wrap">
+  <span class="chip">O que é</span>
+  <h2>A ideia da Alia Popups, aberta e para qualquer site</h2>
+  <p class="sub">A Alia mostrou que jornadas interativas convertem mais que o popup de desconto, mas funciona só na Shopify e cobra por visitante. O popguia leva a mesma técnica para qualquer site, de graça.</p>
+  <figure style="margin:0 0 26px;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000"><img src="assets/banner-grade.jpg" alt="Recursos do popguia: quiz, gatilhos, teste A/B, bandit, MCP e LGPD" loading="lazy" style="width:100%;display:block"></figure>
+  <div class="grid g3">
+    <div class="card"><h3>🤖 Instalado pelo agente</h3><p>Uma CLI (<code>npx popguia init</code>), um servidor MCP e uma skill ensinam o seu agente a detectar o site, colocar o script e criar as jornadas.</p></div>
+    <div class="card"><h3>📁 Tudo em arquivos</h3><p>Jornadas, experimentos e pesos ficam em JSON dentro do seu repositório. Dá para revisar no git, desfazer e versionar como código.</p></div>
+    <div class="card"><h3>📈 Aprende sozinho</h3><p>Grupo de controle, teste A/B e depois um algoritmo (Thompson sampling) que manda mais visitantes para a versão que funciona melhor.</p></div>
+  </div>
+</div></section>
+
+<section id="fluxo"><div class="wrap">
+  <span class="chip">Como funciona</span>
+  <h2>Do pedido ao agente até a jornada que se otimiza</h2>
+  <p class="sub">Os textos das variantes são escritos pelo agente do próprio usuário: o MCP entrega as instruções e o formato, sem chamar nenhuma API paga nossa.</p>
+  <div class="flow">
+    <span>Você pede ao agente</span><span class="arr">→</span>
+    <span>detectar_site</span><span class="arr">→</span>
+    <span>instalar_snippet</span><span class="arr">→</span>
+    <span>criar_jornada</span><span class="arr">→</span>
+    <span>gerar_variantes</span><span class="arr">→</span>
+    <span>validar + preview</span><span class="arr">→</span>
+    <span>publicar</span><span class="arr">→</span>
+    <span>medir e otimizar</span>
+  </div>
+  <div class="grid g3" style="margin-top:26px">
+    <div class="card"><h3>Widget leve</h3><p>Meta de até 15 KB (gzip), <code>&lt;dialog&gt;</code> acessível, sem deslocar o layout (CLS 0) e sem modal na entrada no celular.</p></div>
+    <div class="card"><h3>Gatilhos inteligentes</h3><p>Tempo, rolagem, intenção de saída, inatividade e clique, com limite de frequência e pausa depois de fechar.</p></div>
+    <div class="card"><h3>Coleta sua, não nossa</h3><p>Eventos vão para o Umami, PostHog ou GA4 que você já usa, ou para um coletor que você mesmo publica na sua conta Cloudflare.</p></div>
+  </div>
+</div></section>
+
+<section id="pre"><div class="wrap">
+  <span class="chip">Pré-requisitos (planejados)</span>
+  <h2>O que vai ser preciso para usar</h2>
+  <p class="sub">Nada disso precisa estar pronto hoje: é o que o plano prevê para a primeira versão.</p>
+  <div class="grid g3">
+    <div class="card"><h3>Um agente de código</h3><p>Claude Code, Codex ou Cursor, aberto na pasta do seu site.</p><pre><span class="c"># exemplo</span>
+<span class="k">claude</span></pre></div>
+    <div class="card"><h3>Node.js 20 ou mais</h3><p>Para rodar a CLI e o servidor MCP com <code>npx</code>.</p><pre><span class="c"># conferir</span>
+<span class="k">node</span> -v</pre></div>
+    <div class="card"><h3>Um site seu em git</h3><p>HTML, Next.js, Astro ou Vite (WordPress numa fase seguinte). A instalação recusa pasta com alterações não salvas.</p><pre><span class="c"># conferir</span>
+<span class="k">git</span> status</pre></div>
+  </div>
+</div></section>
+
+<section id="guia"><div class="wrap">
+  <span class="chip">Guia de uso · passo a passo</span>
+  <h2>Como vai funcionar na prática</h2>
+  <p class="sub"><strong>Atenção:</strong> os comandos abaixo são o desenho do plano (<a href="https://github.com/inematds/popguia/blob/main/docs/03-instalacao-pela-ia.md">docs/03</a>). Os pacotes ainda não foram publicados no npm. Por enquanto, o que dá para fazer é ler a pesquisa e o plano.</p>
+
+  <div class="step"><div class="b">1</div><div>
+    <h3>Ler a pesquisa e o plano (já disponível)</h3>
+    <p>Mercado, projetos open source, instalação pela IA, arquitetura, algoritmos e conformidade.</p>
+<pre><span class="k">git clone</span> <span class="s">https://github.com/inematds/popguia</span>
+<span class="k">cd</span> popguia &amp;&amp; <span class="k">cat</span> PLANO.md</pre>
+  </div></div>
+
+  <div class="step"><div class="b">2</div><div>
+    <h3>Pedir ao agente (planejado)</h3>
+    <p>Um prompt só. O agente lê o <code>setup.md</code>, adiciona a skill e o MCP e segue sozinho.</p>
+<pre><span class="c"># no Claude Code, dentro da pasta do seu site</span>
+<span class="s">"Leia https://inematds.github.io/popguia/setup.md e instale um quiz
+de 3 perguntas que recomende o produto certo para cada visitante."</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">3</div><div>
+    <h3>Instalar o script (planejado)</h3>
+    <p>A CLI detecta o framework, mostra o diff antes e só mexe em um arquivo de layout e na pasta <code>popguia/</code>.</p>
+<pre><span class="k">npx popguia init --dry-run</span>   <span class="c"># mostra o que vai mudar</span>
+<span class="k">npx popguia init</span>             <span class="c"># aplica</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">4</div><div>
+    <h3>Criar e validar uma jornada (planejado)</h3>
+    <p>Modelos prontos: diagnóstico, quiz educativo, Learn &amp; Earn, microcompromisso e newsletter em 2 etapas.</p>
+<pre><span class="k">npx popguia add jornada --template diagnostico</span>
+<span class="k">npx popguia validate</span>          <span class="c"># schema, acessibilidade, LGPD</span>
+<span class="k">npx popguia preview</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">5</div><div>
+    <h3>Medir e otimizar (planejado)</h3>
+    <p>Relatório com grupo de controle; o otimizador só mexe nos pesos quando há dados suficientes.</p>
+<pre><span class="k">npx popguia report --html</span> &gt; relatorio.html
+<span class="k">npx popguia optimize --experimento welcome-titulo</span>
+<span class="k">npx popguia doctor</span> <span class="s">https://seu-site.com</span></pre>
+  </div></div>
+</div></section>
+
+<section id="exemplos"><div class="wrap">
+  <span class="chip">Jornadas</span>
+  <h2>Três sites de demonstração</h2>
+  <p class="sub">O plano valida o popguia em sites fictícios dentro do próprio repositório, publicados no GitHub Pages. Eles ainda serão construídos.</p>
+  <div class="grid g3">
+    <div class="card"><h3>🎓 Escola (HTML)</h3><p>3 perguntas sobre objetivo e nível e indicação dos 3 cursos mais adequados de um catálogo fictício.</p></div>
+    <div class="card"><h3>🛍️ Loja (Next.js)</h3><p>Learn &amp; Earn: o visitante aprende sobre o produto, revela um cupom e deixa o e-mail em duas etapas.</p></div>
+    <div class="card"><h3>📝 Blog (Astro)</h3><p>Newsletter em 2 etapas com gatilho de rolagem ou de saída, limite de frequência e versão para celular.</p></div>
+  </div>
+</div></section>
+
+<section id="roadmap"><div class="wrap">
+  <span class="chip">Roadmap</span>
+  <h2>Fases do plano</h2>
+  <p class="sub">Cada fase só fecha com testes que provam o resultado (critérios no <a href="https://github.com/inematds/popguia/blob/main/PLANO.md">PLANO.md</a>). Hoje: pesquisa e plano concluídos.</p>
+  <div class="phase"><div class="tag">Fase 0</div><div class="d"><strong>Fundação</strong><span>Monorepo em TypeScript, testes automáticos, documentação no GitHub Pages.</span></div></div>
+  <div class="phase"><div class="tag">Fase 1</div><div class="d"><strong>Primeira versão</strong><span>Widget, formato das jornadas, CLI e os três sites de demonstração.</span></div></div>
+  <div class="phase"><div class="tag">Fase 2</div><div class="d"><strong>Testes A/B</strong><span>Grupo de controle, alocação estável e relatório honesto ("dados insuficientes" quando for o caso).</span></div></div>
+  <div class="phase"><div class="tag">Fase 3</div><div class="d"><strong>Bandit</strong><span>Thompson sampling por segmento, com período mínimo de exploração e simulação offline.</span></div></div>
+  <div class="phase"><div class="tag">Fase 4</div><div class="d"><strong>MCP e geração por IA</strong><span>Servidor MCP, skill, llms.txt e variantes escritas pelo agente do usuário (ou por um modelo local, como Ollama).</span></div></div>
+  <div class="phase"><div class="tag">Fase 5</div><div class="d"><strong>WordPress e mais</strong><span>Plugin WordPress, vários sites num coletor seu, personalização por contexto e EN/ES.</span></div></div>
+</div></section>
+
+<footer>
+  <div class="wrap">
+    <div class="pill">TypeScript</div><div class="pill">MCP</div><div class="pill">MIT</div>
+    <p style="margin-top:18px">popguia · pesquisa e plano, código em breve ·
+      <a href="https://github.com/inematds/popguia">inematds/popguia</a> ·
+      <a href="https://inema.club">INEMA.CLUB</a></p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var KEY='popguia-theme';
+    var b=document.body, t=document.getElementById('themeToggle');
+    if(localStorage.getItem(KEY)==='light'){ b.classList.add('light'); t.textContent='☀️'; }
+    t.addEventListener('click',function(){
+      var light=b.classList.toggle('light');
+      t.textContent=light?'☀️':'🌙';
+      localStorage.setItem(KEY, light?'light':'dark');
+    });
+  })();
+</script>
+</body>
+</html>

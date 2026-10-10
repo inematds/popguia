@@ -1,5 +1,17 @@
 # popguia
 
+[![popguia](guia/assets/banner.jpg)](https://inematds.github.io/popguia/guia/)
+
+**🇧🇷 [Português](README.md) · 🇺🇸 [English](README.en.md) · 🇪🇸 [Español](README.es.md)**
+
+## O que é
+
+O popguia é um projeto open source para criar popups que conversam com o visitante: em vez de pedir o e-mail logo de cara, ele faz duas ou três perguntas, ensina algo útil e indica o produto, curso ou conteúdo certo. Serve para quem tem um site (HTML, Next.js, Astro, WordPress) e usa um agente de código como Claude Code, Codex ou Cursor: o agente instala, escreve as jornadas e acompanha os resultados. É grátis, com licença MIT, sem mensalidade e sem servidor nosso. Hoje o repositório tem a pesquisa e o plano; o código ainda vai ser escrito.
+
+## 📖 Guia de uso
+
+Guia completo (landing + passo a passo): **https://inematds.github.io/popguia/guia/**
+
 **Popups e jornadas inteligentes que o agente de código do dono do site instala e configura sozinho.**
 
 O dono de um site (HTML, Next.js, WordPress…) diz ao seu Claude Code / Codex / Cursor: *"instala o popguia e cria um quiz que recomende o curso certo"*. O agente instala o snippet, escreve as jornadas como arquivos JSON no repo, gera variantes, valida acessibilidade/LGPD/SEO e publica. Depois, o próprio sistema mede com grupo de controle, roda A/B e evolui para bandit — sem backend obrigatório nosso e sem cobrança por pageview.
