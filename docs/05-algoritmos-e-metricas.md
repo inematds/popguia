@@ -1,6 +1,6 @@
 # 05 — Algoritmos e métricas: triggering, A/B → bandit, guard-rails
 
-> Fatos com link; limiares sem fonte são `[inferência]` nossa e devem ser recalibrados com dados do piloto. Tamanhos de amostra abaixo foram calculados pela fórmula clássica de duas proporções (α = 5 %, poder 80 %, bilateral) e **não** conferidos no calculador do Evan Miller (ele roda em JS); confira em https://www.evanmiller.org/ab-testing/sample-size.html antes de fixar metas.
+> Fatos com link; limiares sem fonte são `[inferência]` nossa e devem ser recalibrados com dados reais de quem instalar. Tamanhos de amostra abaixo foram calculados pela fórmula clássica de duas proporções (α = 5 %, poder 80 %, bilateral) e **não** conferidos no calculador do Evan Miller (ele roda em JS); confira em https://www.evanmiller.org/ab-testing/sample-size.html antes de fixar metas.
 
 ## 1. Smart triggering (quando mostrar)
 
@@ -120,7 +120,7 @@ holdout fixo fora dos pesos ; gravar weights.json {experimento, periodo, pesos, 
 
 Popupsmart recomenda medir lead rate, bounce e receita por visitante juntos para o vencedor não custar engajamento [fato: https://popupsmart.com/blog/do-exit-intent-popups-work].
 
-No piloto inema.club (cursos gratuitos) a "receita" é substituída por **clique no curso recomendado**, **inscrição (newsletter/Telegram)** e, depois, **retorno em 7 dias** — ver `PLANO.md`.
+Num site de cursos gratuitos (como o demo `exemplos/escola`) a "receita" é substituída por **clique no curso recomendado**, **inscrição (newsletter/Telegram)** e, depois, **retorno em 7 dias** — ver `PLANO.md`.
 
 ## 5. Guard-rails (obrigatórios no engine)
 

@@ -106,7 +106,7 @@
 - **Espaço aberto**: nenhum dos concorrentes é (a) open source, (b) instalável por agente de código de ponta a ponta com configuração **em arquivo no repo do cliente**, (c) sem cobrança por pageview. OptiMonk e Popupsmart têm MCP de escrita, mas ambos presumem conta SaaS e builder visual [inferência a partir da tabela].
 - **O que copiar de comportamento** (não de código): entidades Step/Element/Variant, regras globais reutilizáveis, "has completed action", "cookie consent allowed" como condição, Adaptive Timing por grupo, cooldown global entre popups, teaser pós-fechamento, "show again after N days", supressão após conversão com múltiplos sinais.
 - **O que fazer diferente**: jornada como entidade de primeira classe (quiz → diagnóstico → recomendação), objetivos não-comerciais (aula certa, inscrição, engajamento) além de lead/pedido, holdout sem popup como padrão, métricas de dano (bounce/dismissal) sempre visíveis, suporte a HTML/Next.js/WordPress desde o v1.
-- **Risco de marca "popsmart" × Popupsmart**: alto na prática [inferência, não é parecer jurídico]. Detalhes e nomes alternativos no `PLANO.md`, seção "Decisões em aberto".
+- **Nome**: o nome provisório "popsmart" tinha risco alto de confusão com Popupsmart [inferência, não é parecer jurídico]; em 10/10/2026 o Nei escolheu **popguia** (livre no npm na data da pesquisa).
 
 ## 3. Fontes principais
 

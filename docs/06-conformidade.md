@@ -28,7 +28,7 @@
 | `nenhum` (padrão para sites que não têm CMP) | **Sem ID enviado ao servidor**: eventos agregados por sessão com `visitante` efêmero (não persistido) ⇒ sem A/B sticky entre sessões, só regras + frequência local. Formulário de e-mail com checkbox de consentimento não pré-marcada e texto de finalidade. |
 | `cmp` | Escuta o evento/categoria do CMP (OneTrust, Cookiebot, custom); só persiste `visitante` e liga experimentos quando a categoria (`analytics`/`necessaria` conforme o cliente decidir) estiver aceita. |
 | `proprio` | O widget inclui uma etapa de consentimento mínima (aceitar/rejeitar com igual destaque, 2º nível, link de revogação) antes de persistir ID. |
-| Sempre | Chaves de `localStorage` documentadas em `docs/privacidade.md` do cliente (gerado pelo CLI); IP truncado no coletor; retenção padrão 13 meses para `visitante`, 25 meses para agregados; endpoint de revogação/oposição (`window.popsmart.revogar()` apaga tudo local). |
+| Sempre | Chaves de `localStorage` documentadas em `docs/privacidade.md` do cliente (gerado pelo CLI); IP truncado no coletor; retenção padrão 13 meses para `visitante`, 25 meses para agregados; endpoint de revogação/oposição (`window.popguia.revogar()` apaga tudo local). |
 
 ## 3. Acessibilidade (WCAG 2.2 AA)
 
@@ -68,7 +68,7 @@
 2. ID de A/B sem consentimento só com: finalidade estrita, sem cruzamento, 1 editor, vida ≤ 13 meses, oposição fácil, informação ao usuário.
 3. Eventos agregados; IP truncado; retenção ≤ 25 meses (agregados) / 13 meses (ID).
 4. Consentimento granular, "rejeitar" com a mesma força visual de "aceitar", sem pré-marcação, 2º nível quando houver categorias.
-5. Revogação/oposição tão fácil quanto o aceite (`popsmart.revogar()` + link).
+5. Revogação/oposição tão fácil quanto o aceite (`popguia.revogar()` + link).
 6. E-mail só com finalidade declarada e checkbox específica não pré-marcada; pedir o mínimo.
 7. DOI com log (IP, data/hora, texto) e e-mail de confirmação neutro.
 8. Política de retenção por finalidade com expurgo automático no coletor.
